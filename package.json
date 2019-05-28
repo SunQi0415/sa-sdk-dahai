@@ -1,0 +1,30 @@
+{
+  "name": "sa-sdk-dahai",
+  "version": "1.0.0",
+  "description": "sensordata for dahai",
+  "main": "dist/sa-dahai.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --mode production"
+  },
+  "keywords": [
+    "dahai",
+    "webpack-library",
+    "sa"
+  ],
+  "author": "sunqi <sunqi9@100tal.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "sa-sdk-javascript": "^1.13.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  }
+}
