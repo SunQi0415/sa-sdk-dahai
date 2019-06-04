@@ -12,16 +12,7 @@ module.exports = {
     filename: 'sa-dahai.js',
     libraryTarget: 'umd',
     globalObject: 'this',
-    // libraryExport: 'default',
-    library: 'saDahai'
-  },
-  externals: {
-    'sa-sdk-javascript': {
-      commonjs: 'sa-sdk-javascript',
-      commonjs2: 'sa-sdk-javascript',
-      amd: 'sa-sdk-javascript',
-      root: '_'
-    }
+    library: 'DHSensor'
   },
   module: {
     rules: [
