@@ -4,16 +4,17 @@
 # Usage  
 ## ES2015 module import:  
 `import * as DHSensor from 'sa-sdk-dahai'`  
-##CommonJS module require:  
+## CommonJS module require:  
 `const DHSensor = require('sa-sdk-dahai')`  
 ## AMD module require:  
-'''  
+```
 require(['DHSensor'], function (DHSensor) {  
   DHSensor.SaInit(args);  
-})  
-'''  
+})
+```
+
 ## loading it via a script tag:  
-'''  
+``` 
 <!doctype html>  
 <html>  
   ...  
@@ -27,7 +28,7 @@ require(['DHSensor'], function (DHSensor) {
     // ...  
   </script>  
 </html>  
-'''  
+```  
 
 ## Methods  
 ### SaInit  
