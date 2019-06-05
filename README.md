@@ -1,18 +1,18 @@
-#Installation  
-npm install sa-sdk-dahai --save  
+# Installation  
+`npm install sa-sdk-dahai --save`  
 
-#Usage  
-##ES2015 module import:  
-import * as DHSensor from 'sa-sdk-dahai'  
+# Usage  
+## ES2015 module import:  
+`import * as DHSensor from 'sa-sdk-dahai'`  
 ##CommonJS module require:  
-const DHSensor = require('sa-sdk-dahai')  
-##AMD module require:  
+`const DHSensor = require('sa-sdk-dahai')`  
+## AMD module require:  
 '''  
 require(['DHSensor'], function (DHSensor) {  
   DHSensor.SaInit(args);  
 })  
 '''  
-##loading it via a script tag:  
+## loading it via a script tag:  
 '''  
 <!doctype html>  
 <html>  
@@ -29,8 +29,8 @@ require(['DHSensor'], function (DHSensor) {
 </html>  
 '''  
 
-##Methods  
-###SaInit  
+## Methods  
+### SaInit  
 param|required|desc  
 ----|----|----  
 server_url|true|神策项目地址  
@@ -39,7 +39,7 @@ user_id|false|用户id/uid
 gps_lon|false|经度  
 gps_lat|false|维度  
 
-###SaTrack  
+### SaTrack  
 param|required|desc  
 ----|----|----  
 event_name|true|事件名称  
