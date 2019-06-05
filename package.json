@@ -1,6 +1,6 @@
 {
   "name": "sa-sdk-dahai",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "sensordata for dahai",
   "main": "dist/sa-dahai.js",
   "scripts": {
