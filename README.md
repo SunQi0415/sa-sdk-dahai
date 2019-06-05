@@ -47,4 +47,11 @@ event_name|true|事件名称
 properties|false|事件属性  
 callback|false|发送完数据之后的回调  
 
+### stayTime  
+param|required|desc  
+----|----|----  
+id|true|内容id  
+heigh|true|可视区域  
+top|true|可视区域距离顶端高度 
+
 详细请参照神策官网文档(https://www.sensorsdata.cn/manual/js_sdk.html)  
