@@ -6,7 +6,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './lib/index.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'sa-dahai.js',

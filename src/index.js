@@ -60,7 +60,7 @@ export function SaInit({ server_url, pro_name, u_id = '', gps_lon = 0, gps_lat =
     use_client_time: false, // 发送事件的时间使用客户端时间还是服务端时间
     show_log: true, // 是否允许控制台打印查看埋点数据（建议开启查看）
     is_track_device_id: true, // 是否打开获取设备ID功能
-    is_track_single_page: false // 单页面中自动采集web浏览事件$pageview
+    is_track_single_page: true // 单页面中自动采集web浏览事件$pageview
   })
 
   // 标识用户（userId）
