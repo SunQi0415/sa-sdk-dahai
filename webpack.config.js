@@ -4,9 +4,9 @@
  * Desc: webpack library配置
  */
 const path = require('path')
-
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
-  entry: './lib/index.js',
+  entry: './lib/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'sa-dahai.js',
@@ -14,13 +14,33 @@ module.exports = {
     globalObject: 'this',
     library: 'DHSensor'
   },
+  devtool: 'source-map',
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
+  },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader'
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new UglifyJSPlugin({
+      uglifyOptions: {
+          compress: {
+              warnings: false,
+              drop_console: true
+          }
+      },
+      sourceMap: true
+    }),
+  ]
 }
