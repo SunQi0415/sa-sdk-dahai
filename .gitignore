@@ -6,3 +6,5 @@ node_modules
 npm-debug.log
 dist
 dev
+sa-dahai.js
+sa-dahai.js.map
