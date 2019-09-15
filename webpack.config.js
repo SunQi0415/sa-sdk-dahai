@@ -8,7 +8,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   entry: './lib/index.ts',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname),
     filename: 'sa-dahai.js',
     libraryTarget: 'umd',
     globalObject: 'this',
@@ -36,8 +36,7 @@ module.exports = {
     new UglifyJSPlugin({
       uglifyOptions: {
           compress: {
-              warnings: false,
-              drop_console: true
+            drop_console: true
           }
       },
       sourceMap: true

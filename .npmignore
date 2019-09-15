@@ -6,3 +6,10 @@ node_modules
 npm-debug.log
 dist
 dev
+lib
+.babelrc
+.gitignore
+package.json
+package-lock.json
+tsconfig.json
+webpack.config.js
