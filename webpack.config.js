@@ -4,7 +4,6 @@
  * Desc: webpack library配置
  */
 const path = require('path')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   entry: './lib/index.ts',
   output: {
@@ -31,15 +30,5 @@ module.exports = {
         use: 'babel-loader'
       }
     ]
-  },
-  plugins: [
-    new UglifyJSPlugin({
-      uglifyOptions: {
-          compress: {
-            drop_console: true
-          }
-      },
-      sourceMap: true
-    })
-  ]
+  }
 }

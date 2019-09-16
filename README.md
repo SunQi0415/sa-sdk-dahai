@@ -18,7 +18,7 @@ require(['DHSensor'], function (DHSensor) {
 <!doctype html>  
 <html>  
   ...  
-  <script src="/dist/sa-dahai.js"></script>  
+  <script src="sa-dahai.js"></script>  
   <script>  
     // ...  
     // Global variable  
@@ -34,15 +34,15 @@ require(['DHSensor'], function (DHSensor) {
 ### SaInit  
 param|required|desc  
 ----|----|----  
-server_url|true|神策项目地址  
-pro_name|true|神策项目名称  
-user_id|false|用户id/uid  
+serverUrl|true|神策项目地址  
+proName|true|神策项目名称  
+userId|false|用户id/uid  
 其他任意属性
 
 ### SaTrack  
 param|required|desc  
 ----|----|----  
-event_name|true|事件名称  
+eventName|true|事件名称  
 properties|false|事件属性  
 callback|false|发送完数据之后的回调  
 
