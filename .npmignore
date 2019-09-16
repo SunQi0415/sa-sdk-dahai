@@ -4,13 +4,12 @@ node_modules
 .idea
 .vscode
 npm-debug.log
-dist
 dev
+dist
 src
 lib
 .babelrc
 .gitignore
-package.json
 package-lock.json
 tsconfig.json
 webpack.config.js
