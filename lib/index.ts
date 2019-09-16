@@ -98,12 +98,12 @@ class StayDuration implements stayDurationInterface {
     let {contentHeight, scrollTop, contentOffsetTop, contentViewTop} = this.domAttribute(scrolltop)
     let distance = StayDuration.clientHeight - contentViewTop
     clearInterval(this.timer)
+    // 开始计时
     if (distance >= contentHeight * this.percent / 100 && distance <= StayDuration.clientHeight) {
       this.flag = true
       this.timer = setInterval(()=> {
-        // console.log('开始计时')
+        // 结束计时
         window.addEventListener('popstate', () => {
-          // console.log('结束计时')
           this.flag = false
           clearInterval(this.timer)
           SaTrack(this.eventName, Object.assign({
@@ -111,8 +111,8 @@ class StayDuration implements stayDurationInterface {
           }, this.props))
           return
         }, false)
+        // 结束计时
         window.addEventListener('hashchange', () => {
-          // console.log('结束计时')
           this.flag = false
           clearInterval(this.timer)
           SaTrack(this.eventName, Object.assign({
@@ -123,9 +123,9 @@ class StayDuration implements stayDurationInterface {
         this.duration++
       }, 1000)
     }
+    // 结束计时
     if (scrollTop - contentOffsetTop > contentHeight * (1 - this.percent / 100)) {
       if(this.flag) {
-        // console.log('结束计时')
         this.flag = false
         SaTrack(this.eventName, Object.assign({
           stay_duration: this.duration
@@ -153,11 +153,7 @@ class StayDuration implements stayDurationInterface {
     return el.offsetTop + this.calcTop(el.parentNode)
   }
 }
-const aaa = new StayDuration({
-  eventName: 'stay',
-  elementId: 'bbb', 
-  percent: 100
-})
+
 export {
   SaInit,
   SaTrack,
