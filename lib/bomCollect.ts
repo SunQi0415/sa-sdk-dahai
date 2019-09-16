@@ -17,7 +17,7 @@ class NavigatorCollect implements navigatorInterface {
     const init = (async () => {
       try {
         await this.getLocation()
-      } catch(err) {console.log(err)}
+      } catch {}
       delete this.then
       return this
     })()
@@ -32,7 +32,7 @@ class NavigatorCollect implements navigatorInterface {
     this.networkType = networkType
   }
   getLocation() {
-    if (navigator.geolocation.getCurrentPosition) {
+    if (navigator.geolocation) {
       return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(location => {
           this.gpsLon = location.coords.longitude

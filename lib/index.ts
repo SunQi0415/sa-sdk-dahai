@@ -69,7 +69,7 @@ interface stayDurationInterface {
 interface stayDurationParamsInterface {
   eventName: string; // 事件名称
   elementId: string; // 内容id
-  percent: number; // 内容区域临界值
+  percent?: number; // 内容区域临界值
   props?: object; // 根据情况附带的属性值
 }
 class StayDuration implements stayDurationInterface {
@@ -112,6 +112,15 @@ class StayDuration implements stayDurationInterface {
         }, false)
         // 结束计时
         window.addEventListener('hashchange', () => {
+          this.flag = false
+          clearInterval(this.timer)
+          SaTrack(this.eventName, Object.assign({
+            stay_duration: this.duration
+          }, this.props))
+          return
+        }, false)
+        // 结束计时
+        window.addEventListener('unload', () => {
           this.flag = false
           clearInterval(this.timer)
           SaTrack(this.eventName, Object.assign({
