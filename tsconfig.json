@@ -4,9 +4,10 @@
     "module": "es2015",
     "allowJs": true,
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "/",
     "noImplicitAny": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./lib/*"

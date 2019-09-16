@@ -1,5 +1,4 @@
-// import sa from 'sa-sdk-javascript'
-const sa = require('sa-sdk-javascript')
+import sa from 'sa-sdk-javascript'
 import { NDC, PDC } from './bomCollect'
 import { throttle } from './utils'
 
