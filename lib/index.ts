@@ -85,7 +85,7 @@ class StayDuration implements stayDurationInterface {
   constructor(config: stayDurationParamsInterface) {
     this.elementId = config.elementId
     this.eventName = config.eventName
-    this.percent = config.percent || 20
+    this.percent = config.percent || 100
     this.props = config.props
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
     this.calcDuration(scrollTop)

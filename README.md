@@ -37,8 +37,7 @@ param|required|desc
 server_url|true|神策项目地址  
 pro_name|true|神策项目名称  
 user_id|false|用户id/uid  
-gps_lon|false|经度  
-gps_lat|false|维度  
+其他任意属性
 
 ### SaTrack  
 param|required|desc  
@@ -47,11 +46,12 @@ event_name|true|事件名称
 properties|false|事件属性  
 callback|false|发送完数据之后的回调  
 
-### stayTime  
+### StayDuration  
 param|required|desc  
 ----|----|----  
-id|true|内容id  
-heigh|true|可视区域  
-top|true|可视区域距离顶端高度 
+eventName|true|事情名称  
+elementId|true|内容id  
+percent|false|内容区域百分比
+根据情况附带的其他任意属性 
 
 详细请参照神策官网文档(https://www.sensorsdata.cn/manual/js_sdk.html)  
