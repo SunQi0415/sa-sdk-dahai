@@ -13,3 +13,4 @@ lib
 package-lock.json
 tsconfig.json
 webpack.config.js
+node_modules
