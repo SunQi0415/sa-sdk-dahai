@@ -31,7 +31,7 @@ require(['DHSensor'], function (DHSensor) {
 ```  
 
 ## Methods  
-### SaInit  
+### saAutoTrack  
 param|required|desc  
 ----|----|----  
 serverUrl|true|神策项目地址  
@@ -39,12 +39,27 @@ proName|true|神策项目名称
 userId|false|用户id/uid  
 其他任意属性
 
-### SaTrack  
+### saTrack  
 param|required|desc  
 ----|----|----  
 eventName|true|事件名称  
 properties|false|事件属性  
 callback|false|发送完数据之后的回调  
+
+### saLogin  
+param|required|desc  
+----|----|----  
+userId|true|用户id/uid  
+
+### saRegisterPage  
+param|required|desc  
+----|----|----  
+object|true|对象属性  
+
+### saSetProfile  
+param|required|desc  
+----|----|----  
+object|true|对象属性    
 
 ### StayDuration  
 param|required|desc  

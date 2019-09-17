@@ -176,8 +176,8 @@ class StayDuration implements stayDurationInterface {
 export {
   saAutoTrack,
   saTrack,
-  saSetProfile,
   saLogin,
   saRegisterPage,
+  saSetProfile,
   StayDuration
 }
