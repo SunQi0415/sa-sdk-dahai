@@ -22,29 +22,29 @@ require(['DHSensor'], function (DHSensor) {
   <script>  
     // ...  
     // Global variable  
-    DHSensor.SaInit(args)  
+    DHSensor.saInit(args)  
     // Property in the window object  
-    window.DHSensor.SaInit(args)  
+    window.DHSensor.saInit(args)  
     // ...  
   </script>  
 </html>  
 ```  
 
 ## Methods  
-### saAutoTrack  
+### saInit  
 param|required|desc  
 ----|----|----  
-serverUrl|true|神策项目地址  
-proName|true|神策项目名称  
-userId|false|用户id/uid  
+server_url|true|神策项目地址  
+pro_name|true|神策项目名称  
+user_id|false|用户id/uid  
 其他任意属性
 
 ### saTrack  
 param|required|desc  
 ----|----|----  
-eventName|true|事件名称  
-properties|false|事件属性  
-callback|false|发送完数据之后的回调  
+---|true|事件名称  
+---|false|事件属性  
+---|false|发送完数据之后的回调  
 
 ### saLogin  
 param|required|desc  
@@ -64,8 +64,8 @@ object|true|对象属性
 ### StayDuration  
 param|required|desc  
 ----|----|----  
-eventName|true|事情名称  
-elementId|true|内容id  
+event_name|true|事情名称  
+element|true|内容id  
 percent|false|内容区域百分比
 根据情况附带的其他任意属性 
 
