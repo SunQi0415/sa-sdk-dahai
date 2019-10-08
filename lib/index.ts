@@ -108,10 +108,10 @@ async function saInit(params: saInitConfig) {
     }
   })
 }
-saInit({
-  server_url: 'aaa',
-  pro_name: 'bbb'
-})
+// saInit({
+//   server_url: 'aaa',
+//   pro_name: 'bbb'
+// })
 
 interface stayDurationParams {
   event_name: string; // 事件名称
