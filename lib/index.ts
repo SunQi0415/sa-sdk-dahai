@@ -1,15 +1,33 @@
 import * as sa from 'sa-sdk-javascript'
 import { NDC } from './collect'
 import { EventUtils, DomStyleUtils, DomAttrUtils, FuncUtils } from './utils'
-import { start } from 'repl'
 
+// 自定义事件
+function saTrack(eventName: string, properties: object, callback?: Function): void {
+  sa.track(eventName, properties, callback)
+}
+// 设置用户属性
+function saSetProfile(params: any): void {
+  sa.setProfile(params)
+}
+// 匿名ID和登录ID关联
+function saLogin(user_id: string | number) {
+  sa.login(user_id)
+  sa.quick('autoTrack')
+}
+// 设置事件公共属性
+function saRegisterPage(params: any) {
+  sa.registerPage(params)
+}
+
+// 默认采集
 interface saInitConfig {
   server_url: string; // 神策项目地址
   pro_name: string; // 神策项目名称
   user_id?: string | number; // 用户id
+  show_log?: boolean;
   [prop_name: string]: any;
 }
-
 class Point {
   private params: saInitConfig
   static instance: any = null
@@ -31,12 +49,12 @@ class Point {
       },
       send_timeout: 1000, //默认使用队列发数据时候，两条数据发送间的最大间隔
       use_client_time: false, // 发送事件的时间使用客户端时间还是服务端时间
-      show_log: true, // 是否允许控制台打印查看埋点数据（建议开启查看）
+      show_log: this.params.show_log || false, // 是否允许控制台打印查看埋点数据（建议开启查看）
       is_track_device_id: true, // 是否打开获取设备ID功能
       is_track_single_page: true // 单页面中自动采集web浏览事件$pageview
     })
     // 标识用户
-    if (this.params.userId) { sa.login(this.params.userId) }
+    if (this.params.user_id) { sa.login(this.params.user_id) }
     // 全埋点
     sa.quick('autoTrack')
   }
@@ -71,23 +89,6 @@ class Point {
     }, 500)
   }
 }
-// 自定义事件
-function saTrack(eventName: string, properties: object, callback?: Function): void {
-  sa.track(eventName, properties, callback)
-}
-// 设置用户属性
-function saSetProfile(params: any): void {
-  sa.setProfile(params)
-}
-// 匿名ID和登录ID关联
-function saLogin(user_id: string | number) {
-  sa.login(user_id)
-  sa.quick('autoTrack')
-}
-// 设置事件公共属性
-function saRegisterPage(params: any) {
-  sa.registerPage(params)
-}
 
 // 主入口
 async function saInit(params: saInitConfig) {
@@ -119,7 +120,7 @@ interface stayDurationParams {
 class StayDuration {
   private event_name: string
   private element: string
-  private percent: number = 20
+  private percent: number
   private props: any
   private timer: any
   private flag: boolean = false
@@ -127,7 +128,7 @@ class StayDuration {
   constructor(params: stayDurationParams) {
     this.event_name = params.event_name
     this.element = params.element
-    this.percent = params.percent
+    this.percent = params.percent || 20
     this.props = params.props
     this.calc()
     // 监听页面滚动
@@ -170,12 +171,12 @@ class StayDuration {
     EventUtils.removeHandler(window, 'popstate', this.endReport)
     EventUtils.removeHandler(window, 'hashchange', this.endReport)
     EventUtils.removeHandler(window, 'beforeunload', this.endReport)
-    
-    saTrack(this.event_name, Object.assign({
-      stay_duration: this.duration
-    }, this.props || {}))
-    this.duration = 0
-    return
+    if(this.duration >= 4) {
+      saTrack(this.event_name, Object.assign({
+        stay_duration: this.duration
+      }, this.props || {}))
+      this.duration = 0
+    }
   }
 }
 

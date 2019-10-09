@@ -32,41 +32,43 @@ require(['DHSensor'], function (DHSensor) {
 
 ## Methods  
 ### saInit  
-param|required|desc  
-----|----|----  
-server_url|true|神策项目地址  
-pro_name|true|神策项目名称  
-user_id|false|用户id/uid  
-其他任意属性
+param|required|type|desc  
+----|----|----|----  
+server_url|true|string|神策项目地址  
+pro_name|true|string|神策项目名称  
+user_id|false|string|用户id/uid  
+show_log|false|boolean|默认为false（不打印）  
+props|false|object|其他任意属性  
+
 
 ### saTrack  
-param|required|desc  
-----|----|----  
----|true|事件名称  
----|false|事件属性  
----|false|发送完数据之后的回调  
+param|required|type|desc  
+----|----|----|----  
+event_name|true|string|事件名称  
+props|false|object|事件属性  
+callback|false|function|发送完数据之后的回调  
 
 ### saLogin  
-param|required|desc  
-----|----|----  
-user_id|true|用户id/uid  
+param|required|type|desc  
+----|----|----|----  
+user_id|true|string|用户id/uid  
 
 ### saRegisterPage  
-param|required|desc  
-----|----|----  
-object|true|对象属性  
+param|required|type|desc  
+----|----|----|----  
+object|true|object|对象属性  
 
 ### saSetProfile  
-param|required|desc  
-----|----|----  
-object|true|对象属性    
+param|required|type|desc  
+----|----|----|----  
+object|true|object|对象属性    
 
 ### StayDuration  
-param|required|desc  
-----|----|----  
-event_name|true|事情名称  
-element|true|内容id  
-percent|false|内容区域百分比
-props|false|根据情况附带的其他任意属性
+param|required|type|desc  
+----|----|----|----  
+event_name|true|string|事情名称  
+element|true|string|内容id  
+percent|false|number|内容区域百分比  
+props|false|object|根据情况附带的其他任意属性  
 
 详细请参照神策官网文档(https://www.sensorsdata.cn/manual/js_sdk.html)  
