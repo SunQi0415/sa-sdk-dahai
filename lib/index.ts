@@ -1,6 +1,7 @@
 import * as sa from 'sa-sdk-javascript'
 import { NDC } from './collect'
 import { EventUtils, DomStyleUtils, DomAttrUtils, FuncUtils } from './utils'
+import { start } from 'repl'
 
 interface saInitConfig {
   server_url: string; // 神策项目地址
@@ -67,7 +68,7 @@ class Point {
         white_screen_time: whiteScreenTime / 1000,
         dom_ready_time: domReadyTime / 1000
       })
-    }, 0)
+    }, 500)
   }
 }
 // 自定义事件
@@ -108,10 +109,6 @@ async function saInit(params: saInitConfig) {
     }
   })
 }
-// saInit({
-//   server_url: 'aaa',
-//   pro_name: 'bbb'
-// })
 
 interface stayDurationParams {
   event_name: string; // 事件名称
@@ -120,30 +117,37 @@ interface stayDurationParams {
   [prop_name: string]: any; // 根据情况附带的属性值
 }
 class StayDuration {
-  private params: stayDurationParams
+  private event_name: string
+  private element: string
+  private percent: number = 20
+  private props: any
   private timer: any
   private flag: boolean = false
   private duration: number = 0
   constructor(params: stayDurationParams) {
-    this.params = params
+    this.event_name = params.event_name
+    this.element = params.element
+    this.percent = params.percent
+    this.props = params.props
     this.calc()
     // 监听页面滚动
-    EventUtils.addHandler(window, 'scroll', FuncUtils.throttle(this.calc))
+    EventUtils.addHandler(window, 'scroll', FuncUtils.throttle(() => {
+      this.calc()
+    }))
     // 监听页面url跳转和页面关闭
     EventUtils.addHandler(window, 'popstate', this.endReport)
     EventUtils.addHandler(window, 'hashchange', this.endReport)
     EventUtils.addHandler(window, 'beforeunload', this.endReport)
-    // EventUtils.addHandler(window, 'unload', this.endReport)
+    EventUtils.addHandler(window, 'unload', this.endReport)
   }
   // 计算时长
   calc() {
-    let element = document.querySelector(this.params.element)
+    let element = document.querySelector(this.element)
     let {clientHeight, elementViewTop, scrollTop, elementHeight, elementTop} = DomStyleUtils.getDomStyle(element)
     let distance = clientHeight - elementViewTop
-    let percent = this.params.percent
     clearInterval(this.timer)
     // 开始计时
-    if (distance >= elementHeight * percent / 100 && distance <= clientHeight) {
+    if (distance >= elementHeight * this.percent / 100 && distance <= clientHeight) {
       this.flag = true
       this.timer = setInterval(()=> {
         // console.log('开始计时')
@@ -151,27 +155,25 @@ class StayDuration {
       }, 1000)
     }
     // 结束计时
-    if (scrollTop - elementTop > elementHeight * (1 - percent / 100)) {
+    if (scrollTop - elementTop > elementHeight * (1 - this.percent / 100)) {
+      // console.log('结束计时')
       if(this.flag) {
         this.endReport()
       }
       return
     }
   }
-  // 结束数据上报
+  // 结束时数据上报
   endReport() {
     this.flag = false
     clearInterval(this.timer)
     EventUtils.removeHandler(window, 'popstate', this.endReport)
     EventUtils.removeHandler(window, 'hashchange', this.endReport)
     EventUtils.removeHandler(window, 'beforeunload', this.endReport)
-    let restParams = this.params
-    delete restParams.eventName
-    delete restParams.element
-    delete restParams.percent
-    saTrack(this.params.event_name, Object.assign({
+    
+    saTrack(this.event_name, Object.assign({
       stay_duration: this.duration
-    }, restParams))
+    }, this.props || {}))
     this.duration = 0
     return
   }

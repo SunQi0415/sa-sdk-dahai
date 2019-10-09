@@ -49,7 +49,7 @@ param|required|desc
 ### saLogin  
 param|required|desc  
 ----|----|----  
-userId|true|用户id/uid  
+user_id|true|用户id/uid  
 
 ### saRegisterPage  
 param|required|desc  
@@ -67,6 +67,6 @@ param|required|desc
 event_name|true|事情名称  
 element|true|内容id  
 percent|false|内容区域百分比
-根据情况附带的其他任意属性 
+props|false|根据情况附带的其他任意属性
 
 详细请参照神策官网文档(https://www.sensorsdata.cn/manual/js_sdk.html)  
