@@ -171,12 +171,10 @@ class StayDuration {
     EventUtils.removeHandler(window, 'popstate', this.endReport)
     EventUtils.removeHandler(window, 'hashchange', this.endReport)
     EventUtils.removeHandler(window, 'beforeunload', this.endReport)
-    if(this.duration >= 4) {
-      saTrack(this.event_name, Object.assign({
-        stay_duration: this.duration
-      }, this.props || {}))
-      this.duration = 0
-    }
+    saTrack(this.event_name, Object.assign({
+      stay_duration: this.duration
+    }, this.props || {}))
+    this.duration = 0
   }
 }
 
