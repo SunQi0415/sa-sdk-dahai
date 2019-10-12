@@ -130,7 +130,9 @@ class StayDuration {
     this.element = params.element
     this.percent = params.percent || 20
     this.props = params.props
-    this.calc()
+    if (DomStyleUtils.scrollTop() === 0) {
+      this.calc()
+    }
     // 监听页面滚动
     EventUtils.addHandler(window, 'scroll', FuncUtils.throttle(() => {
       this.calc()
@@ -143,21 +145,24 @@ class StayDuration {
   }
   // 计算时长
   calc() {
-    let element = document.querySelector(this.element)
-    let {clientHeight, elementViewTop, scrollTop, elementHeight, elementTop} = DomStyleUtils.getDomStyle(element)
-    let distance = clientHeight - elementViewTop
+    let el = document.querySelector(this.element)
+    let {clientHeight, elementViewTop, scrollTop, elementHeight, elementTop} = DomStyleUtils.getDomStyle(el)
     clearInterval(this.timer)
-    // 开始计时
-    if (distance >= elementHeight * this.percent / 100 && distance <= clientHeight) {
+    let distance = clientHeight - elementViewTop
+    // console.log('elementHeight：' + elementHeight)
+    // console.log('clientHeight：' + clientHeight)
+    // console.log('elementViewTop：' + elementViewTop)
+    // console.log('distance：' + distance)
+    if (elementViewTop < clientHeight && distance >= elementHeight * this.percent / 100 && distance <= clientHeight) {
       this.flag = true
       this.timer = setInterval(()=> {
-        // console.log('开始计时')
+        console.log('开始计时')
         this.duration++
       }, 1000)
     }
     // 结束计时
-    if (scrollTop - elementTop > elementHeight * (1 - this.percent / 100)) {
-      // console.log('结束计时')
+    else if (scrollTop - elementTop > elementHeight * (1 - this.percent / 100)) {
+      console.log('结束计时')
       if(this.flag) {
         this.endReport()
       }
@@ -168,13 +173,15 @@ class StayDuration {
   endReport() {
     this.flag = false
     clearInterval(this.timer)
+    console.log('时长：' + this.duration);
     EventUtils.removeHandler(window, 'popstate', this.endReport)
     EventUtils.removeHandler(window, 'hashchange', this.endReport)
     EventUtils.removeHandler(window, 'beforeunload', this.endReport)
     saTrack(this.event_name, Object.assign({
       stay_duration: this.duration
-    }, this.props || {}))
-    this.duration = 0
+    }, this.props || {}), function () {
+      this.duration = 0
+    })
   }
 }
 
