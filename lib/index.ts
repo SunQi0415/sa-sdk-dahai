@@ -149,20 +149,16 @@ class StayDuration {
     let {clientHeight, elementViewTop, scrollTop, elementHeight, elementTop} = DomStyleUtils.getDomStyle(el)
     clearInterval(this.timer)
     let distance = clientHeight - elementViewTop
-    // console.log('elementHeight：' + elementHeight)
-    // console.log('clientHeight：' + clientHeight)
-    // console.log('elementViewTop：' + elementViewTop)
-    // console.log('distance：' + distance)
     if (elementViewTop < clientHeight && distance >= elementHeight * this.percent / 100 && distance <= clientHeight) {
       this.flag = true
       this.timer = setInterval(()=> {
-        console.log('开始计时')
+        // console.log('开始计时')
         this.duration++
       }, 1000)
     }
     // 结束计时
     else if (scrollTop - elementTop > elementHeight * (1 - this.percent / 100)) {
-      console.log('结束计时')
+      // console.log('结束计时')
       if(this.flag) {
         this.endReport()
       }
@@ -173,15 +169,16 @@ class StayDuration {
   endReport() {
     this.flag = false
     clearInterval(this.timer)
-    console.log('时长：' + this.duration);
     EventUtils.removeHandler(window, 'popstate', this.endReport)
     EventUtils.removeHandler(window, 'hashchange', this.endReport)
     EventUtils.removeHandler(window, 'beforeunload', this.endReport)
-    saTrack(this.event_name, Object.assign({
-      stay_duration: this.duration
-    }, this.props || {}), function () {
-      this.duration = 0
-    })
+    if (this.duration !== 0) {
+      saTrack(this.event_name, Object.assign({
+        stay_duration: this.duration
+      }, this.props || {}), function () {
+        this.duration = 0
+      })
+    }
   }
 }
 
