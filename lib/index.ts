@@ -98,7 +98,6 @@ async function saInit(params: saInitConfig) {
   point.saAutoTrack()
   // 页面性能数据上报
   EventUtils.addHandler(window, 'load', point.saPerformanceTrack())
-  EventUtils.removeHandler(window, 'load', point.saPerformanceTrack())
   // 公共数据上报
   let ndc: NDC = await new NDC() // navigator相关数据采集
   point.saGlobalRegisterPage(ndc)
@@ -111,15 +110,6 @@ async function saInit(params: saInitConfig) {
     }
   })
 }
-
-// saInit({
-//   server_url: 'aaa',
-//   pro_name: 'bbb',
-//   props: {
-//     a: 1,
-//     b: 2
-//   }
-// })
 
 interface stayDurationParams {
   event_name: string; // 事件名称
@@ -166,13 +156,18 @@ class StayDuration {
         this.duration++
       }, 1000)
     }
-    // 结束计时
-    else if (scrollTop - elementTop > elementHeight * (1 - this.percent / 100)) {
-      // console.log('结束计时')
+    // 结束计时（页面向下滚动）
+    if (scrollTop - elementTop > elementHeight * (1 - this.percent / 100)) {
       if(this.flag) {
+        // console.log('结束计时')
         this.endReport()
       }
       return
+    }
+    // 结束计时（页面向上滚动）
+    if (this.flag === true && (elementViewTop < clientHeight && distance < elementHeight * this.percent / 100)) {
+      // console.log('结束计时')
+      this.endReport()
     }
   }
   // 结束时数据上报
