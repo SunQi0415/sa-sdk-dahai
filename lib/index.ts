@@ -21,12 +21,15 @@ function saRegisterPage(params: any) {
 }
 
 // 默认采集
+interface otherProps {
+  [prop_name: string]: any;
+}
 interface saInitConfig {
   server_url: string; // 神策项目地址
   pro_name: string; // 神策项目名称
   user_id?: string | number; // 用户id
   show_log?: boolean;
-  [prop_name: string]: any;
+  props?: otherProps;
 }
 class Point {
   private params: saInitConfig
@@ -60,20 +63,18 @@ class Point {
   }
   public async saGlobalRegisterPage(ndc: NDC) {
     // 删除传入参数的serverUrl
-    let paramsClone = this.params;
-    delete paramsClone.server_url
+    let others = this.params.props || {}
     // 预置采集事件公共属性
-    sa.registerPage(
-      Object.assign(paramsClone, {
-        gps_lon: ndc.gpsLon, // 经度
-        gps_lat: ndc.gpsLat, // 纬度
-        current_url: location.href, // 当前url
-        referrer: document.referrer, // 前一个url
-        network_type: ndc.networkType, // 网络类型
-        screen_name: location.pathname, //采集URL关键词，记录唯一页面标识（不包含域名）
-        domain_name: document.domain // 域名
-      })
-    )
+    sa.registerPage(Object.assign(others, {
+      pro_name: this.params.pro_name, // 当前上报项目
+      gps_lon: ndc.gpsLon, // 经度
+      gps_lat: ndc.gpsLat, // 纬度
+      current_url: location.href, // 当前url
+      referrer: document.referrer, // 前一个url
+      network_type: ndc.networkType, // 网络类型
+      screen_name: location.pathname, //采集URL关键词，记录唯一页面标识（不包含域名）
+      domain_name: document.domain // 域名
+    }))
   }
   public saPerformanceTrack(): any {
     window.setTimeout(() => {
@@ -110,6 +111,15 @@ async function saInit(params: saInitConfig) {
     }
   })
 }
+
+// saInit({
+//   server_url: 'aaa',
+//   pro_name: 'bbb',
+//   props: {
+//     a: 1,
+//     b: 2
+//   }
+// })
 
 interface stayDurationParams {
   event_name: string; // 事件名称
