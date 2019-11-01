@@ -32,11 +32,13 @@ class NavigatorCollect implements navigatorInterface {
     this.networkType = networkType
   }
   getLocation() {
-    if (navigator.geolocation) {
+    let _gpsLon = window.localStorage.getItem('gpsLon')
+    if (navigator.geolocation && !_gpsLon) {
       return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(location => {
           this.gpsLon = location.coords.longitude
           this.gpsLat = location.coords.latitude
+          window.localStorage.setItem('gpsLon', String(location.coords.longitude))
           resolve(location)
         }, (error) => {
           reject(error)
