@@ -142,9 +142,42 @@ class FuncUtils {
   }
 }
 
+function getStyle(element: any, attr: any): any {
+  // 特性侦测
+  if (window.getComputedStyle) {
+    // 优先使用W3C规范
+    return window.getComputedStyle(element)[attr]
+  } else {
+    // 针对IE9以下兼容
+    return element.currentStyle[attr];
+  }
+}
+
+// 获取url参数
+function getUrlParams(): {[key: string]: any} {
+  let search: string = window.location.search
+  let queryObj: {[key: string]: any} = new Object()
+  if (search.indexOf('?') !== -1) {
+    let query = search.substr(1)
+    let queryArr = query.split('&')
+    for (let i = 0; i < queryArr.length; i++) {
+      queryObj[queryArr[i].split('=')[0]] = unescape(queryArr[i].split('=')[1])
+    }
+  }
+  return queryObj
+}
+
+// json格式接口
+interface jsonPropsInterface {
+  [prop_name: string]: any;
+}
+
 export {
   EventUtils,
   DomStyleUtils,
   DomAttrUtils,
-  FuncUtils
+  FuncUtils,
+  getUrlParams,
+  getStyle,
+  jsonPropsInterface
 }

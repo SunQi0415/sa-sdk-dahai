@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "./lib/*"
+    "./lib/*", "lib/collects/stayDurationCollect.ts", "lib/collects/navigatorCollect.ts", "lib/collects/globalCollect.ts", "lib/utils/utils.ts"
   ],
   "exclude": [
     "./node_modules"
